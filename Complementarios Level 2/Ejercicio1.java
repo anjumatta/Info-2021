@@ -9,14 +9,12 @@ public class Ejercicio1 {
 
         int continuar = 1;
         while (continuar==1) {
-            System.out.print("Presione Enter para comenzar");
-            scan.nextLine();
             System.out.print("Por favor, ingrese una ciudad argentina: ");
             String ciudad = scan.nextLine();
             ciudadesArgentinas.add(ciudad);
             
             System.out.print("Para continuar presione 1. Para salir presione cualquier otro número.");
-            continuar = scan.nextInt();
+            continuar = Integer.parseInt(scan.nextLine());
         }
 
         scan.close();
