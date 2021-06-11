@@ -1,0 +1,4 @@
+Nombre y Apellido: Freddie Mercury - DNI: 1234
+Nombre y Apellido: Brian May - DNI: 5678
+Nombre y Apellido: Roger Taylor - DNI: 3579
+Nombre y Apellido: John Deacon - DNI: 2468
