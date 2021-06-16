@@ -15,13 +15,15 @@ public class Empleado {
         this.apellido = apellido;
     }
 
+    // Conviertir fecha a LocalDate
     public void setFechaNac(String fechaNac) {
         DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.fechaNac = LocalDate.parse(fechaNac,formatter);;
+        this.fechaNac = LocalDate.parse(fechaNac,formatter);
     }
 
-    public void setSueldo(double sueldo) {
-        this.sueldo = sueldo;
+    // Conviertir Sueldo a double 
+    public void setSueldo(String sueldo) {
+        this.sueldo = Double.parseDouble(sueldo);
     }
 
     public String getNombre() {
@@ -39,21 +41,37 @@ public class Empleado {
     public double getSueldo() {
         return sueldo;
     }
-    
-    Empleado(String nombre, String apellido, String fechaNac, double sueldo){
+
+
+    Empleado(String nombre, String apellido, String fechaNac, String sueldo){
         this.setNombre(nombre);
         this.setApellido(apellido);
         this.setSueldo(sueldo);
         this.setFechaNac(fechaNac); 
     }
 
-    public Empleado(String nombre2, String apellido2, String fechaNac2, String string) {
-    }
-
     @Override
     public String toString() {
-        return this.nombre + " " + this.apellido + " - Fecha de Nacimiento : " + this.fechaNac + " - Sueldo: " + this.sueldo;
+        return this.nombre + " " + this.apellido;
     }
 
     
+    public int getEdad(String fechaActual){
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate hoy = LocalDate.parse(fechaActual,formatter);
+        int diaActual = hoy.getDayOfMonth();
+        int mesActual = hoy.getMonthValue();
+        int anioActual = hoy.getYear();
+        int edad = anioActual - this.fechaNac.getYear();
+        if (mesActual < fechaNac.getMonthValue()){
+            edad = edad -1;
+        }
+        if (mesActual == fechaNac.getMonthValue()){
+            if (diaActual < fechaNac.getDayOfMonth()){
+                edad = edad -1;
+            }
+        }
+        return edad;
+    }
+
 }
