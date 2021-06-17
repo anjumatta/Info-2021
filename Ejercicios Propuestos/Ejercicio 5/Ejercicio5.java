@@ -4,29 +4,36 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Ejercicio5 {
     private static List<Empleado> listaEmpleados = new ArrayList<>();
     public static void main(String args[]) throws IOException{
-        
-        //Menú?
 
         leerEmpleados();
 
         String letra = "g";
-        System.out.println("Los empleados que empiezan con la letra " + letra + " son: " + porApellido(letra));
+        System.out.println(">>> Los empleados que empiezan con la letra " + letra + " son: " + porApellido(letra));
 
-        System.out.println("Lista de empleados ordenada por nombre: ");
+        System.out.println(">>> Lista de empleados ordenada por nombre: ");
         ordenarNombre();
 
-        System.out.println("Lista de empleados ordenada por apellido: ");
+        System.out.println(">>> Lista de empleados ordenada por apellido: ");
         ordenarApellido();
 
-        System.out.println("El empleado de mayor edad es: " );
+        System.out.println(">>> Empleado mayor y menor: ");
+        Map<String, Empleado> mayorYmenorEdad = mayorMenorEdad(listaEmpleados);
+        mayorYmenorEdad.forEach((k,v) -> System.out.println(k + v.getNombre() + " " + v.getApellido() + " - Edad: " + v.getEdad()));
 
+        System.out.println(">>> Empleados que ganan más y menos: ");
+        Map<String, Empleado> mayorYmenorSueldo = mayorMenorSueldo(listaEmpleados);
+        mayorYmenorSueldo.forEach((k,v) -> System.out.println(k + v.getNombre() + " " + v.getApellido() + " - Sueldo: " + v.getSueldo()));
     }
+
+
 
     //Leer archivo txt y listar Empleados
 
@@ -74,13 +81,32 @@ public class Ejercicio5 {
         System.out.println(listaEmpleados);
         }
 
-
-    public static void masJoven() {
-        
-    }
-
-    public static void masViejo() {
-  
-    }
     
+    //Empleado más joven y más viejo
+
+    public static Map<String, Empleado> mayorMenorEdad(List<Empleado> listaEdades) {
+        Map<String, Empleado> empleadosMap = new HashMap<>();
+        listaEdades.sort(Comparator.comparing(Empleado::getEdad));
+
+        empleadosMap.put("El empleado de menor edad es: ", listaEdades.get(0));
+        empleadosMap.put("El empleado de mayor edad es: ", listaEdades.get(listaEdades.size() - 1));
+
+        return empleadosMap;
+
+    }
+
+
+    //Empleados que ganan más y menos
+
+    public static Map<String, Empleado> mayorMenorSueldo(List<Empleado> listaSueldos) {
+        Map<String, Empleado> empleadosMap = new HashMap<>();
+        listaSueldos.sort(Comparator.comparing(Empleado::getSueldo));
+
+        empleadosMap.put("El empleado con el menor sueldo es: ", listaSueldos.get(0));
+
+        empleadosMap.put("El empleado con el mayor sueldo es: ", listaSueldos.get(listaSueldos.size() - 1));
+        return empleadosMap;
+
+    }
+
 }

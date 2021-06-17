@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class Empleado {
@@ -55,23 +56,9 @@ public class Empleado {
         return this.nombre + " " + this.apellido;
     }
 
-    
-    public int getEdad(String fechaActual){
-        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate hoy = LocalDate.parse(fechaActual,formatter);
-        int diaActual = hoy.getDayOfMonth();
-        int mesActual = hoy.getMonthValue();
-        int anioActual = hoy.getYear();
-        int edad = anioActual - this.fechaNac.getYear();
-        if (mesActual < fechaNac.getMonthValue()){
-            edad = edad -1;
-        }
-        if (mesActual == fechaNac.getMonthValue()){
-            if (diaActual < fechaNac.getDayOfMonth()){
-                edad = edad -1;
-            }
-        }
-        return edad;
+    public int getEdad(){
+        Period edad = Period.between(this.fechaNac, LocalDate.now());
+        return edad.getYears();
     }
 
 }
